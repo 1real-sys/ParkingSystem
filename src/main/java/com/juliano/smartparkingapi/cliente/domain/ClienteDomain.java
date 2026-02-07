@@ -1,6 +1,8 @@
 package com.juliano.smartparkingapi.cliente.domain;
 
-
+import com.juliano.smartparkingapi.veiculos.domain.VeiculosDomain;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.juliano.smartparkingapi.clienteMensalista.domain.ClienteMensalistaDomain;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -29,6 +31,14 @@ public class ClienteDomain {
 
     @Column(name = "data_cadastro", nullable = false)
     private LocalDateTime dataCadastro;
+
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private ClienteMensalistaDomain clienteMensalista;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<VeiculosDomain> veiculos;
 
     @PrePersist
     private void prePersist() {

@@ -2,12 +2,15 @@ package com.juliano.smartparkingapi.clienteMensalista.domain;
 
 
 import com.juliano.smartparkingapi.cliente.domain.ClienteDomain;
+import com.juliano.smartparkingapi.veiculos.domain.VeiculosDomain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
-
+import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "clientes_mensalistas")
 public class ClienteMensalistaDomain {
@@ -19,9 +22,6 @@ public class ClienteMensalistaDomain {
     @OneToOne
     @JoinColumn(name = "cliente_id", nullable = false, unique = true)
     private ClienteDomain cliente;
-
-    @Column(name = "placa_veiculo", nullable = false, unique = true)
-    private String placaVeiculo;
 
     @Column(name = "modelo_veiculo")
     private String modeloVeiculo;
@@ -40,6 +40,7 @@ public class ClienteMensalistaDomain {
 
     @Column(name = "ativo", nullable = false)
     private Boolean ativo = true;
+
 
     @PrePersist
     private void prePersist() {
